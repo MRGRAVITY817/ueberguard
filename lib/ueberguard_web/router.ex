@@ -17,8 +17,10 @@ defmodule UeberguardWeb.Router do
   scope "/", UeberguardWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", HomeLive, :index
+    live "/dashboard", DashboardLive, :index
 
+    get "/signout", AuthController, :signout
     get "/auth/:provider", AuthController, :request
     get "/auth/:provider/callback", AuthController, :callback
   end

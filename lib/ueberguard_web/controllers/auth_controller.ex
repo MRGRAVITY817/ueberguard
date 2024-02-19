@@ -10,9 +10,17 @@ defmodule UeberguardWeb.AuthController do
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    # do something with the auth
-    # ...
-    # then redirect
-    redirect(conn, to: "/")
+    conn
+    |> put_flash(:info, "Successfully authenticated.")
+    |> assign(:current_user, auth.info.email)
+    |> redirect(to: "/dashboard")
+  end
+
+  def signout(conn, _params) do
+    # delete oauth session
+    conn
+    |> configure_session(drop: true)
+    |> put_flash(:info, "You have been logged out.")
+    |> redirect(to: "/")
   end
 end
