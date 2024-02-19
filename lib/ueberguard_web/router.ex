@@ -18,11 +18,14 @@ defmodule UeberguardWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    get "/auth/:provider", AuthController, :request
+    get "/auth/:provider/callback", AuthController, :callback
   end
 
   # Other scopes may use custom stacks.
   # scope "/api", UeberguardWeb do
-  #   pipe_through :api
+  # pipe_through :api
   # end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
